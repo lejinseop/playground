@@ -24,7 +24,7 @@
     "prepare": "husky install",
     "storybook": "start-storybook -p 6006 -s public",
     "build-storybook": "build-storybook -s public && yarn build-storybook:cname",
-    "build-storybook:cname": "echo storybook.wprt.cc > ./storybook-static/CNAME"
+    "build-storybook:cname": "echo storybook.ljsplayground.cc > ./storybook-static/CNAME"
   },
   "browserslist": {
     "production": [
