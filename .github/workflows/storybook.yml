@@ -1,0 +1,27 @@
+name: Storybook development
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+
+      - name: Build storybook
+        run: |
+          yarn install
+          yarn build-storybook
+        env:
+          CI: true
+
+      - name: Deploy storybook
+        uses: peaceiris/actions-gh-pages@v3
+        whth:
+          deploy_key: ${{ secrets.ACTIONS_DEPLOY_KEY }}
+          publish_branch: storybook
+          publish_dir: ./storybook-static
