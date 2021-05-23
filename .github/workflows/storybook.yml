@@ -21,7 +21,8 @@ jobs:
 
       - name: Deploy storybook
         uses: peaceiris/actions-gh-pages@v3
-        whth:
+        with:
           deploy_key: ${{ secrets.ACTIONS_DEPLOY_KEY }}
           publish_branch: storybook
           publish_dir: ./storybook-static
+          
