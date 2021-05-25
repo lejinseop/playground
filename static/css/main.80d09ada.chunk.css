@@ -33,9 +33,12 @@
   font-family: 'Nunito Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   border-bottom: 1px solid rgba(0, 0, 0, 0.1);
   padding: 15px 20px;
+  display: -webkit-flex;
   display: flex;
-  align-items: center;
-  justify-content: space-between;
+  -webkit-align-items: center;
+          align-items: center;
+  -webkit-justify-content: space-between;
+          justify-content: space-between;
 }
 
 svg {
@@ -127,4 +130,4 @@ li {
 }
 
 
-/*# sourceMappingURL=main.0b660ce0.chunk.css.map*/
+/*# sourceMappingURL=main.80d09ada.chunk.css.map*/
