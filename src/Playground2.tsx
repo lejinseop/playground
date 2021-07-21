@@ -17,7 +17,6 @@ interface SampleButtonStyleProps {
 const StyledButton = styled(Button)`
   background-color: purple;
   & .MuiButton-label {
-    color: ${(props: any) => props.theme.palette.secondary.main};
   }
 `;
 
@@ -28,7 +27,7 @@ const buttonStyle = (theme: Theme, props: SampleButtonStyleProps) => css`
   }
 `;
 
-const inputBaseStyle = (theme: Theme) => css`
+const inputBaseStyle = css`
   &.MuiInputBase-root {
     border: 1px solid red;
   }
@@ -56,7 +55,7 @@ const Playground2: FC<ButtonProps> = () => {
   const handleClose = () => {
     setOpen(false);
   };
-  const handleClick = (e: any) => {
+  const handleClick = () => {
     setColor((prev) => {
       if (prev === 'yellow') {
         return 'red';

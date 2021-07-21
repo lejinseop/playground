@@ -1,7 +1,6 @@
 import type { FC } from 'react';
 import { createTheme, ThemeProvider } from '@material-ui/core/styles';
 
-import Playground from './Playground';
 import Playground2 from './Playground2';
 
 const App: FC = () => {
