@@ -89,7 +89,6 @@ const dateInputStyle = (theme: Theme) => css`
 const Playground: FC<ButtonProps> = () => {
   return (
     <>
-      <Button sx={(theme) => css``}>aaa</Button>
       <Button css={buttonStyle}>hahaha</Button>
       <Tooltip
         css={tooltipStyle}
