@@ -38,7 +38,7 @@ jobs:
         run: yarn build:dev
       
       - name: Get git branch or tag name
-        run: echo "ref=${GITHUB_REF@refs/*/}" >> $GITHUB_ENV
+        run: echo "ref=${GITHUB_REF#refs/*/}" >> $GITHUB_ENV
 
       - name: Publish in build artifact
         uses: peaceiris/actions-gh-pages@v3
