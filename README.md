@@ -5,6 +5,16 @@
 ## Table of contents
 
 - [환경별 도메인](#환경별-도메인)
+  - [Development](#development)
+  - [Test](#test)
+  - [Production](#production)
+- [Node version](#node-version)
+- [Prepare](#prepare)
+- [Excutation](#excutation)
+- [Build](#build)
+- [Deployment](#deployment)
+- [Folder structure](#folder-structure)
+  - [`.environments`](#environments)
 
 ## 환경별 도메인
 
@@ -90,7 +100,7 @@ yarn build:prd
   2. .github/workflow/deploy-prd.yml로 이동
   3. Run workflow에서 Run workflow 클릭
 
-## Folder Structure
+## Folder structure
 
 제품운영 어드민 클라이언트 프로젝트의 구조는 아래와 같이 구성되어 있습니다.
 
