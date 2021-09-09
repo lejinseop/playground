@@ -37,17 +37,17 @@
     - [API 추가하는 방법](#api-추가하는-방법)
     - [새로운 페이지 개발하는 방법](#새로운-페이지-개발하는-방법)
     - [컴포넌트 Styling 하는 방법](#컴포넌트-styling-하는-방법)
+      - [단순히 컴포넌트를 styling 할 때](#단순히-컴포넌트를-styling-할-때)
+      - [컴포넌트를 styling 하는데 theme 정보가 필요할 때](#컴포넌트를-styling-하는데-theme-정보가-필요할-때)
+      - [컴포넌트를 styling 하는데 theme, parameter가 필요할 때](#컴포넌트를-styling-하는데-theme-parameter가-필요할-때)
+      - [한 컴포넌트에 여러 style이 정의되어야 할 때](#한-컴포넌트에-여러-style이-정의되어야-할-때)
+      - [Material UI component style을 override 할 때](#material-ui-component-style을-override-할-때)
+      - [`sx property` 사용 가이드](#sx-property-사용-가이드)
     - [global style 설정하는 방법](#global-style-설정하는-방법)
     - [typography theme 설정하는 방법](#typography-theme-설정하는-방법)
     - [palette theme 설정하는 방법](#palette-theme-설정하는-방법)
     - [각 컴포넌트 theme 설정하는 방법](#각-컴포넌트-theme-설정하는-방법)
     - [SVG 추가하는 방법](#svg-추가하는-방법)
-  - [컴포넌트 Styling 방식](#컴포넌트-styling-방식)
-    - [단순히 컴포넌트를 styling 할 때](#단순히-컴포넌트를-styling-할-때)
-    - [컴포넌트를 styling 하는데 theme 정보를 사용할 때](#컴포넌트를-styling-하는데-theme-정보를-사용할-때)
-    - [컴포넌트를 styling 하는데 여러 스타일을 정의해야 할 때](#컴포넌트를-styling-하는데-여러-스타일을-정의해야-할-때)
-    - [컴포넌트를 styling 하는데 theme 정보도 쓰고 property도 사용할 때](#컴포넌트를-styling-하는데-theme-정보도-쓰고-property도-사용할-때)
-    - [material-ui component classes를 override 할 때](#material-ui-component-classes를-override-할-때)
 
 ## 환경별 도메인
 
@@ -415,42 +415,15 @@ import parseDecimal from '~/libs/utils/parseDecimal';
 
 ### 컴포넌트 Styling 하는 방법
 
-### global style 설정하는 방법
+#### 단순히 컴포넌트를 styling 할 때
 
-`theme/global-styles.ts` 파일에 필요한 global styles를 설정합니다.\
-**이곳에 추가되는 스타일은 정말 필요한 항목일 경우에만 추가되어야 합니다.**
-
-### typography theme 설정하는 방법
-
-`theme/typography.ts` 파일에서 typography에 대한 theme정보를 설정합니다.\
-theme 설정을 위한 scheme 정보는 [Material UI guide](https://next.material-ui.com/customization/typography/)를 확인해주세요.\
-**꼭 Zeplin style guide와 맞춰서 추가해주세요.**
-
-### palette theme 설정하는 방법
-
-`theme/palette.ts` 파일에서 palette에 대한 theme정보를 설정합니다.\
-**꼭 Zeplin style guide와 맞춰서 추가해주세요.**\
-
-### 각 컴포넌트 theme 설정하는 방법
-
-Material-UI에서 제공하는 component들의 theme를 설정 할 수 있습니다.\
-`theme/[component name].component.ts` 파일에서 설정합니다.\
-각 컴포넌트에 대한 theme 설정을 위한 scheme 정보는 [Material UI guide](https://next.material-ui.com/customization/theme-components/)를 확인해주세요.\
-
-### SVG 추가하는 방법
-
-[SVG 아이콘 넣는법 가이드](https://github.com/birdviewdev/fe-operation-admin/blob/main/src/svgs/README.md)를 참고해주세요.
-
-## 컴포넌트 Styling 방식
-
-### 단순히 컴포넌트를 styling 할 때
-
-```jsx
+```tsx
 /** @jsxImportSource @emotion/react */
 
-import { Button } from '@material-ui/core';
-import type { ButtonProps } from '@material-ui/core';
+import type { FC } from 'react';
 import { css } from '@emotion/react';
+import { Button } from '@mui/material';
+import type { ButtonProps } from '@mui/material';
 
 const sampleButtonStyle = css`
   background-color: #e4f7ba;
@@ -463,18 +436,18 @@ const SampleButton: FC = () => {
 export default SampleButton;
 ```
 
-### 컴포넌트를 styling 하는데 theme 정보를 사용할 때
+#### 컴포넌트를 styling 하는데 theme 정보가 필요할 때
 
-```jsx
+```tsx
 /** @jsxImportSource @emotion/react */
 
-import { Button } from '@material-ui/core';
-
+import type { FC } from 'react';
 import { css } from '@emotion/react';
-import type { CustomTheme } from '~/theme';
+import { Button } from '@mui/material';
+import type { Theme } from '@mui/material';
 
-const sampleButtonStyle = (theme: CustomTheme) => css`
-  background-color: ${theme.palette.primary.main};
+const sampleButtonStyle = (theme: Theme) => css`
+  background-color: ${theme.palette.mint[500]};
 `;
 
 const SampleButton: FC = () => {
@@ -484,63 +457,21 @@ const SampleButton: FC = () => {
 export default SampleButton;
 ```
 
-### 컴포넌트를 styling 하는데 여러 스타일을 정의해야 할 때
+#### 컴포넌트를 styling 하는데 theme, parameter가 필요할 때
 
 ```tsx
 /** @jsxImportSource @emotion/react */
 
 import type { FC } from 'react';
-
-import { Button } from '@material-ui/core';
-
 import { css } from '@emotion/react';
-import type { CustomTheme } from '~/theme';
-
-import CalendarIcon from '~/svgs/CalendarIcon';
-
-const styles = {
-  sampleButton: (theme: CustomTheme) => css`
-    background-color: ${theme.palette.primary.main};
-  `,
-  calendarIcon: css`
-    background-color: grey;
-  `,
-};
-
-const SampleButton: FC = () => {
-  return (
-    <Button
-      css={styles.sampleButton}
-      endIcon={<CalendarIcon css={styles.calendarIcon} />}
-    >
-      Sample Button
-    </Button>
-  );
-};
-
-export default SampleButton;
-```
-
-### 컴포넌트를 styling 하는데 theme 정보도 쓰고 property도 사용할 때
-
-```tsx
-/** @jsxImportSource @emotion/react */
-
-import type { FC } from 'react';
-
-import { Button } from '@material-ui/core';
-
-import { css } from '@emotion/react';
-import type { CustomTheme } from '~/theme';
+import { Button } from '@mui/material';
+import type { Theme } from '@mui/material';
 
 interface SampleButtonStyleProps {
   happyColor: string;
 }
 
-const sampleButtonStyle = (
-  theme: CustomTheme,
-  props: SampleButtonStyleProps,
-) => css`
+const sampleButtonStyle = (theme: Theme, props: SampleButtonStyleProps) => css`
   background-color: ${theme.palette.primary.main};
   color: ${props.happyColor};
 `;
@@ -558,16 +489,50 @@ const SampleButton: FC = () => {
 export default SampleButton;
 ```
 
-### material-ui component classes를 override 할 때
+#### 한 컴포넌트에 여러 style이 정의되어야 할 때
+
+```tsx
+/** @jsxImportSource @emotion/react */
+
+import type { FC } from 'react';
+import { css } from '@emotion/react';
+import { Button } from '@mui/material';
+import type { Theme } from '@mui/material';
+
+import { CalendarIcon } from '~/svgs';
+
+const sampleButtonStyles = {
+  sampleButton: (theme: Theme) => css`
+    background-color: ${theme.palette.primary.main};
+  `,
+  calendarIcon: css`
+    background-color: grey;
+  `,
+};
+
+const SampleButton: FC = () => {
+  return (
+    <Button
+      css={sampleButtonStyles.sampleButton}
+      endIcon={<CalendarIcon css={sampleButtonStyles.calendarIcon} />}
+    >
+      Sample Button
+    </Button>
+  );
+};
+
+export default SampleButton;
+```
+
+#### Material UI component style을 override 할 때
 
 [컴포넌트 API](https://material-ui.com/api/button/#css)를 참고하여 아래와 같이 override합니다.
 
-```jsx
+```tsx
 /** @jsxImportSource @emotion/react */
 
-import { Button } from '@material-ui/core';
-
 import { css } from '@emotion/react';
+import { Button } from '@mui/material';
 
 const sampleButtonStyle = css`
   background-color: #e4f7ba;
@@ -584,37 +549,79 @@ const SampleButton: FC = () => {
 export default SampleButton;
 ```
 
-위와 같은 방법으로 custom이 안될때는 [material-ui가 가이드 하는 방식](https://material-ui.com/components/tooltips/#customized-tooltips)으로 진행합니다.
+#### `sx property` 사용 가이드
 
-아래 방식은 v5로 마이그레이션 후 [experimentalStyled](https://next.material-ui.com/system/basics/#3-custom-components)을 사용하도록 변경 될 예정입니다.
+`sx property` 는 일회성 스타일을 적용하는데 유용합니다. Material UI team은 그래서 이를 "utility"라고 합니다.\
+[이 기능이 해결하려는 문제들에 대한 문서](https://next.material-ui.com/system/basics/#problem-solved)를 참고하시면 좋습니다. 자세한 사용방법은 [공식문서](https://next.material-ui.com/system/the-sx-prop/#main-content)를 참고해주세요.
+
+운영 어드민에서는 이 기능을 아래와 같이 style 객체를 따로 만들기 애매한 상황에서 emotion 대신 사용합니다.
 
 ```tsx
-import Tooltip from '@material-ui/core/Tooltip';
-import { makeStyles } from '@material/core/styles';
-import type { CustomTheme } from '~/theme';
+import type { FC } from 'react';
+import { css } from '@emotion/react';
+import { Box, Button } from '@mui/material';
 
-const useTooltipOverrideStyles = makeStyles((theme: CustomTheme) => ({
-  tooltip: {
-    backgroundColor: theme.palette.mint[500],
-  },
-}));
+// AS-IS
+const profileStyles = {
+  positiveButton: css`
+    margin-right: 10px;
+  `,
+};
 
-const SampleTooltip: FC = () => {
-  const tooltipOverrideStylesClasses = useTooltipOverrideStyles;
+const Profile: FC = () => {
   return (
-    <Tooltip
-      title={<>This is tooltip</>}
-      classes={tooltipOverrideStylesClasses}
-      arrow
-    >
-      <span>Tooltip sample</span>
-    </Tooltip>
+    <Box>
+      <Button
+        size="small"
+        variant="positive"
+        css={profileStyles.positiveButton}
+      >
+        OK
+      </Button>
+      <Button size="small" variant="negative">
+        Cancel
+      </Button>
+    </Box>
   );
 };
 
-export default SampleTooltip;
+// TO-BE
+const Profile: FC = () => {
+  return (
+    <Box>
+      <Button size="small" variant="positive" sx={{ marginRight: '10px' }}>
+        OK
+      </Button>
+      <Button size="small" variant="negative">
+        Cancel
+      </Button>
+    </Box>
+  );
+};
 ```
 
-```
+### global style 설정하는 방법
 
-```
+`theme/global-styles.ts` 파일에 필요한 global styles를 설정합니다.\
+**이곳에 추가되는 스타일은 정말 필요한 항목일 경우에만 추가되어야 합니다.**
+
+### typography theme 설정하는 방법
+
+`theme/typography.ts` 파일에서 typography에 대한 theme정보를 설정합니다.\
+theme 설정을 위한 scheme 정보는 [Material UI guide](https://next.material-ui.com/customization/typography/)를 확인해주세요.\
+**꼭 Zeplin style guide와 맞춰서 추가해주세요.**
+
+### palette theme 설정하는 방법
+
+`theme/palette.ts` 파일에서 palette에 대한 theme정보를 설정합니다.\
+**꼭 Zeplin style guide와 맞춰서 추가해주세요.**
+
+### 각 컴포넌트 theme 설정하는 방법
+
+Material-UI에서 제공하는 component들의 theme를 설정 할 수 있습니다.\
+`theme/[component name].component.ts` 파일에서 설정합니다.\
+각 컴포넌트에 대한 theme 설정을 위한 scheme 정보는 [Material UI guide](https://next.material-ui.com/customization/theme-components/)를 확인해주세요.
+
+### SVG 추가하는 방법
+
+[SVG 아이콘 넣는법 가이드](https://github.com/birdviewdev/fe-operation-admin/blob/main/src/svgs/README.md)를 참고해주세요.
