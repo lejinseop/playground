@@ -14,7 +14,7 @@
 - [Build](#build)
 - [Deployment](#deployment)
 - [Folder structure](#folder-structure)
-  - [`.environments`](#environments)
+  - [`.environments`](#-environments-)
 
 ## 환경별 도메인
 
